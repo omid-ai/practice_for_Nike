@@ -34,6 +34,7 @@ class App : Application() {
             single { createApiServiceInstance() }
             single<ImageLoadingService> { FrescoImageLoadingService() }
             single<SharedPreferences> { this@App.getSharedPreferences("app_Setting", MODE_PRIVATE) }
+            single { UserLocalDataSource(get()) }
             single<UserRepository> {
                 UserRepositoryImpl(
                     UserRemoteDataSource(get()),

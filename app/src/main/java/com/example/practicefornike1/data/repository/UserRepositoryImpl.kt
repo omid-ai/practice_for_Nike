@@ -16,11 +16,12 @@ class UserRepositoryImpl(
             onSuccessfulLogin(it)
         }.ignoreElement()
 
-    override fun signUp(userName: String, password: String): Completable = remoteDataSource.signUp(userName,password).flatMap { messageResponces->
-        remoteDataSource.login(userName,password)
-    }.doOnSuccess {
-        onSuccessfulLogin(it)
-    }.ignoreElement()
+    override fun signUp(userName: String, password: String): Completable =
+        remoteDataSource.signUp(userName, password).flatMap { messageResponces ->
+            remoteDataSource.login(userName, password)
+        }.doOnSuccess {
+            onSuccessfulLogin(it)
+        }.ignoreElement()
 
     override fun loadToken() {
         localDataSource.loadToken()

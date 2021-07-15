@@ -15,7 +15,7 @@ class UserRemoteDataSource(val apiService: ApiService) : UserDataSource {
             JsonObject().apply {
                 addProperty("username", userName)
                 addProperty("password", password)
-                addProperty("grant_type", password)
+                addProperty("grant_type", "password")
                 addProperty("client_id", CLIENT_ID)
                 addProperty("client_secret", CLIENT_SECRET)
             }
@@ -23,7 +23,7 @@ class UserRemoteDataSource(val apiService: ApiService) : UserDataSource {
 
     override fun signUp(userName: String, password: String): Single<MessageResponse> =
         apiService.signUp(JsonObject().apply {
-            addProperty("username",userName)
+            addProperty("email",userName)
             addProperty("password",password)
         })
 

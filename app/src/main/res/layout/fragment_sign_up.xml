@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loginScreenTitle"
+            android:text="@string/signUpScreenTitle"
             android:textAppearance="?textAppearanceHeadline5"
             android:layout_marginTop="15dp"/>
 
@@ -32,7 +32,7 @@
             android:textAppearance="?textAppearanceBody2"/>
 
         <EditText
-            android:id="@+id/emailEt"
+            android:id="@+id/etEmail"
             android:layout_width="@dimen/authItemWidth"
             android:layout_height="wrap_content"
             android:hint="@string/email"
@@ -40,18 +40,19 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/passwordEt"
+            android:id="@+id/etPassword"
             android:layout_width="@dimen/authItemWidth"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:gravity="end|center_vertical"
             android:layout_marginTop="15dp"
             android:inputType="textPassword"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginBtn"
+            android:id="@+id/signUpBtn"
             android:layout_width="@dimen/authItemWidth"
             android:layout_height="wrap_content"
-            android:text="@string/loginTitle"
+            android:text="@string/signUp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:minHeight="45dp"
@@ -70,15 +71,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signUp_hint"
+            android:text="@string/loginHint"
             android:alpha="0.4"
             android:textAppearance="?textAppearanceBody1"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/go_for_sign_up_btn"
+            android:id="@+id/goForLoginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signUp"
+            android:text="@string/loginTitle"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_marginBottom="10dp"/>
 
