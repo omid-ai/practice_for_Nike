@@ -10,6 +10,7 @@ import com.example.practicefornike1.service.FrescoImageLoadingService
 import com.example.practicefornike1.service.ImageLoadingService
 import com.example.practicefornike1.service.createApiServiceInstance
 import com.example.practicefornike1.ui.auth.AuthViewModel
+import com.example.practicefornike1.ui.cart.CartViewModel
 import com.example.practicefornike1.ui.list.ProductListViewModel
 import com.example.practicefornike1.ui.main.HomeViewModel
 import com.example.practicefornike1.ui.product.ProductDetailActivity
@@ -56,6 +57,7 @@ class App : Application() {
             viewModel { (productId: Int) -> CommentViewModel(get(), productId) }
             viewModel { (sort: Int) -> ProductListViewModel(sort, get()) }
             viewModel { AuthViewModel(get()) }
+            viewModel { CartViewModel(get()) }
         }
 
         startKoin {
