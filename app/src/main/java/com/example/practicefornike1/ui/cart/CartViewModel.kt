@@ -43,14 +43,16 @@ class CartViewModel(val cartRepository: CartRepository) : NikeViewModel() {
         return cartRepository.changeCount(cartItem.cart_item_id, ++cartItem.count)
             .doAfterSuccess {
                 calculateAndPublishPurchaseDetail()
-            }.ignoreElement()
+            }
+            .ignoreElement()
     }
 
     fun decreaseItemInCart(cartItem: CartItem): Completable {
         return cartRepository.changeCount(cartItem.cart_item_id, --cartItem.count)
             .doAfterSuccess {
                 calculateAndPublishPurchaseDetail()
-            }.ignoreElement()
+            }
+            .ignoreElement()
     }
 
     fun refresh() {

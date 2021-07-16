@@ -33,7 +33,7 @@ interface ApiService {
     @GET("cart/count")
     fun getCartItemCount():Single<CartItemCount>
 
-    @POST("cart/count")
+    @POST("cart/changeCount")
     fun changeItemCount(@Body jsonObject: JsonObject):Single<AddToCartResponse>
 
     @GET("cart/list")
