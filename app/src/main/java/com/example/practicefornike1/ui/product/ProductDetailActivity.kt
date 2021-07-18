@@ -30,27 +30,28 @@ import org.koin.core.parameter.parametersOf
 class ProductDetailActivity : NikeActivity() {
 
     private lateinit var binding: ActivityProductDetailBinding
-    val viewModel:ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
-    val imageLoadingService:ImageLoadingService by inject()
-    val commentAdapter=CommentAdapter()
-    val compositeDisposable=CompositeDisposable()
+    val viewModel: ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
+    val imageLoadingService: ImageLoadingService by inject()
+    val commentAdapter = CommentAdapter()
+    val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityProductDetailBinding.inflate(layoutInflater)
+        binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.commentRv.layoutManager=LinearLayoutManager(this,RecyclerView.VERTICAL,false)
+        binding.commentRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         binding.ivProduct.post {
-            val height=binding.ivProduct.measuredHeight
-            binding.observableScrollView.addScrollViewCallbacks(object :ObservableScrollViewCallbacks{
+            val height = binding.ivProduct.measuredHeight
+            binding.observableScrollView.addScrollViewCallbacks(object :
+                ObservableScrollViewCallbacks {
                 override fun onScrollChanged(
                     scrollY: Int,
                     firstScroll: Boolean,
                     dragging: Boolean
                 ) {
-                    binding.toolBar.alpha=scrollY.toFloat()/ height.toFloat()
-                    binding.ivProduct.translationY=scrollY.toFloat()/2
+                    binding.toolBar.alpha = scrollY.toFloat() / height.toFloat()
+                    binding.ivProduct.translationY = scrollY.toFloat() / 2
                 }
 
                 override fun onDownMotionEvent() {
@@ -67,34 +68,34 @@ class ProductDetailActivity : NikeActivity() {
         binding.addToCartBtn.setOnClickListener {
             viewModel.onAddToCartBtn().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object :NikeCompletableObserver(compositeDisposable){
+                .subscribe(object : NikeCompletableObserver(compositeDisposable) {
                     override fun onComplete() {
                         showSnackBar(getString(R.string.success_addToCart))
                     }
                 })
         }
 
-        viewModel.progressBarLiveData.observe(this){
+        viewModel.progressBarLiveData.observe(this) {
             setProgressBarIndicator(it)
         }
 
-        viewModel.productDetailLiveData.observe(this){
-            imageLoadingService.load(binding.ivProduct,it.image)
-            binding.tvProductName.text=it.title
-            binding.productTitleTv.text=it.title
-            binding.previousPrice.text= formatPrice(it.previous_price)
-            binding.previousPrice.paintFlags=Paint.STRIKE_THRU_TEXT_FLAG
-            binding.currentPrice.text= formatPrice(it.price)
+        viewModel.productDetailLiveData.observe(this) {
+            imageLoadingService.load(binding.ivProduct, it.image)
+            binding.tvProductName.text = it.title
+            binding.productTitleTv.text = it.title
+            binding.previousPrice.text = formatPrice(it.previous_price)
+            binding.previousPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.currentPrice.text = formatPrice(it.price)
         }
 
-        viewModel.commentLiveData.observe(this){
-            commentAdapter.comment= it as ArrayList<Comments>
-            binding.commentRv.adapter=commentAdapter
-            if (it.size>3){
-                binding.viewAllCommentsBtn.visibility=View.VISIBLE
+        viewModel.commentLiveData.observe(this) {
+            commentAdapter.comment = it as ArrayList<Comments>
+            binding.commentRv.adapter = commentAdapter
+            if (it.size > 3) {
+                binding.viewAllCommentsBtn.visibility = View.VISIBLE
                 binding.viewAllCommentsBtn.setOnClickListener {
-                    startActivity(Intent(this,CommentListActivity::class.java).apply {
-                        putExtra(EXTRA_KET_ID,viewModel.productDetailLiveData.value!!.id)
+                    startActivity(Intent(this, CommentListActivity::class.java).apply {
+                        putExtra(EXTRA_KET_ID, viewModel.productDetailLiveData.value!!.id)
                     })
                 }
             }
