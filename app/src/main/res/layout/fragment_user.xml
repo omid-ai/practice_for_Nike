@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="87dp"
-        android:text="user"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="centerInside"
+            app:strokeColor="?dividerColor"
+            app:strokeWidth="1dp"
+            app:shapeAppearance="@style/Avatar"
+            android:src="@drawable/ic_nike_logo"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/emailTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/guest_user"
+            android:layout_marginTop="16dp"
+            android:textAppearance="?textAppearanceBody1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@drawable/background_tv_user"
+            android:showDividers="middle|end|beginning"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:id="@+id/favoriteListBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/favorites"
+                app:drawableEndCompat="@drawable/ic_favorites"
+                style="@style/UserFragmentButtons"/>
+            <TextView
+                android:id="@+id/showOrderHistoryBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/orderHistory"
+                app:drawableEndCompat="@drawable/ic_order_history"
+                style="@style/UserFragmentButtons"/>
+            <TextView
+                android:id="@+id/signInAndSignOutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/signOut"
+                app:drawableEndCompat="@drawable/ic_sign_out"
+                style="@style/UserFragmentButtons"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

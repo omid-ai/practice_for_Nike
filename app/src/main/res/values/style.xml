@@ -38,5 +38,28 @@
         <item name="android:minHeight">48dp</item>
         <item name="android:gravity">center</item>
     </style>
+    
+    <style name="ShippingActivityTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
 
+    <style name="ShippingActivityTextInputEditTextStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="UserFragmentButtons">
+        <item name="android:minHeight">45dp</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:textAppearance">?textAppearanceBody1</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingEnd">18dp</item>
+    </style>
+    
+    <style name="Avatar">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

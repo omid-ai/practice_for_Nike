@@ -75,4 +75,8 @@ class ProductListActivity : NikeActivity(),ProductAdapter.ProductItemClickListen
         })
     }
 
+    override fun onFavoriteBtnClicked(product: Product) {
+        viewModel.onFavoriteBtn(product)
+    }
+
 }

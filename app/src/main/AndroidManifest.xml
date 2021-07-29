@@ -13,7 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PracticeForNike1"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.auth.AuthenticationActivity" android:theme="@style/Theme.Nike.authTheme"></activity>
+        <activity
+            android:name=".ui.order.OrderHistoryActivity"
+            android:exported="true" />
+        <activity android:name=".ui.favorites.FavoriteListActivity" />
+        <activity android:name=".ui.checkout.CheckOutActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="expertdevelopers.ir"
+                    android:pathPattern="/appCheckout"
+                    android:scheme="nike" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.shipping.ShippingActivity" />
+        <activity
+            android:name=".ui.auth.AuthenticationActivity"
+            android:theme="@style/Theme.Nike.authTheme" />
         <activity android:name=".ui.list.ProductListActivity" />
         <activity android:name=".ui.product.comment.CommentListActivity" />
         <activity android:name=".ui.product.ProductDetailActivity" />

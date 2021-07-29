@@ -13,22 +13,31 @@ class UserRepositoryImpl(
     UserRepository {
     override fun login(userName: String, password: String): Completable =
         remoteDataSource.login(userName, password).doOnSuccess {
-            onSuccessfulLogin(it)
+            onSuccessfulLogin(it,userName)
         }.ignoreElement()
 
     override fun signUp(userName: String, password: String): Completable =
         remoteDataSource.signUp(userName, password).flatMap { messageResponces ->
             remoteDataSource.login(userName, password)
         }.doOnSuccess {
-            onSuccessfulLogin(it)
+            onSuccessfulLogin(it,userName)
         }.ignoreElement()
 
     override fun loadToken() {
         localDataSource.loadToken()
     }
 
-    fun onSuccessfulLogin(tokenResponce: TokenResponce) {
+    override fun getUsername():String {
+        return localDataSource.getUsername()
+    }
+
+    override fun signOut() {
+        localDataSource.signOut()
+    }
+
+    fun onSuccessfulLogin(tokenResponce: TokenResponce,userName: String) {
         TokenContainer.update(tokenResponce.access_token, tokenResponce.refresh_token)
         localDataSource.saveToken(tokenResponce.access_token, tokenResponce.refresh_token)
+        localDataSource.saveUserName(userName)
     }
 }

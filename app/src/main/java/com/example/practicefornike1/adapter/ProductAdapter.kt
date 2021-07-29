@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practicefornike1.R
@@ -31,6 +32,7 @@ class ProductAdapter(var viewType: Int= VIEW_TYPE_ROUND, val imageLoadingService
         val productName=itemView.findViewById<TextView>(R.id.productNameTv)!!
         val previousPrice=itemView.findViewById<TextView>(R.id.previousPriceTv)!!
         val currentPrice=itemView.findViewById<TextView>(R.id.currentPriceTv)!!
+        val favoriteBtn=itemView.findViewById<ImageView>(R.id.favoriteBtn)
         fun bindProduct(product: Product){
             imageLoadingService.load(productIv,product.image)
             productName.text=product.title
@@ -40,6 +42,18 @@ class ProductAdapter(var viewType: Int= VIEW_TYPE_ROUND, val imageLoadingService
             itemView.implementSpringAnimationTrait()
             itemView.setOnClickListener {
                 productItemClickListener?.onProductClicked(product)
+            }
+
+            if (product.isFavorite){
+                favoriteBtn.setImageResource(R.drawable.ic_favorite_fill)
+            }else{
+                favoriteBtn.setImageResource(R.drawable.ic_favorites)
+            }
+
+            favoriteBtn.setOnClickListener {
+                productItemClickListener?.onFavoriteBtnClicked(product)
+                product.isFavorite=!product.isFavorite
+                notifyItemChanged(adapterPosition)
             }
         }
     }
@@ -66,5 +80,6 @@ class ProductAdapter(var viewType: Int= VIEW_TYPE_ROUND, val imageLoadingService
 
     interface ProductItemClickListener{
         fun onProductClicked(product: Product)
+        fun onFavoriteBtnClicked(product: Product)
     }
 }

@@ -31,7 +31,7 @@ interface ApiService {
     fun removeItemFromCart(@Body jsonObject: JsonObject):Single<MessageResponse>
 
     @GET("cart/count")
-    fun getCartItemCount():Single<CartItemCount>
+    fun getCartItemsCount(): Single<CartItemCount>
 
     @POST("cart/changeCount")
     fun changeItemCount(@Body jsonObject: JsonObject):Single<AddToCartResponse>
@@ -47,6 +47,15 @@ interface ApiService {
 
     @POST("auth/token")
     fun refreshToken(@Body jsonObject: JsonObject):Call<TokenResponce>
+
+    @POST("order/submit")
+    fun submittingOrder(@Body jsonObject: JsonObject):Single<SubmitOrderResult>
+
+    @GET("order/checkout")
+    fun checkout(@Query("order_id")orderId:Int):Single<Checkout>
+
+    @GET("order/list")
+    fun orders():Single<List<OrderHistoryItem>>
 }
 
 fun createApiServiceInstance():ApiService{

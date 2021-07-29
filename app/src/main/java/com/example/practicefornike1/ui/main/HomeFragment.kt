@@ -91,4 +91,8 @@ class HomeFragment : NikeFragment(),ProductAdapter.ProductItemClickListener {
             putExtra(EXTRA_KEY_DATA,product)
         })
     }
+
+    override fun onFavoriteBtnClicked(product: Product) {
+        homeViewModel.onFavoriteBtn(product)
+    }
 }

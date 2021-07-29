@@ -29,5 +29,5 @@ class CartRemoteDataSource(val apiService: ApiService) : CartDataSource {
             addProperty("count", count)
         })
 
-    override fun getCartItemCount(): Single<CartItemCount> = apiService.getCartItemCount()
+    override fun getCartItemCount(): Single<CartItemCount> = apiService.getCartItemsCount()
 }

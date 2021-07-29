@@ -3,11 +3,13 @@ package com.example.practicefornike1.ui.list
 
 import androidx.lifecycle.MutableLiveData
 import com.example.practicefornike1.R
+import com.example.practicefornike1.common.NikeCompletableObserver
 import com.example.practicefornike1.common.NikeSingleObserver
 import com.example.practicefornike1.common.NikeViewModel
 import com.example.practicefornike1.common.asyncNetworkRequest
 import com.example.practicefornike1.data.Product
 import com.example.practicefornike1.data.repository.ProductRepository
+import io.reactivex.schedulers.Schedulers
 
 class ProductListViewModel(var sort:Int, val repository: ProductRepository):NikeViewModel() {
 
@@ -36,5 +38,23 @@ class ProductListViewModel(var sort:Int, val repository: ProductRepository):Nike
         this.sort=sort
         this.selectedSortTitleLiveData.value=sortTitles[sort]
         getProduct()
+    }
+
+    fun onFavoriteBtn(product: Product){
+        if (product.isFavorite){
+            repository.deleteFromProducts(product).subscribeOn(Schedulers.io())
+                .subscribe(object : NikeCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite=false
+                    }
+                })
+        }else{
+            repository.addToFavorites(product).subscribeOn(Schedulers.io())
+                .subscribe(object : NikeCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite=true
+                    }
+                })
+        }
     }
 }

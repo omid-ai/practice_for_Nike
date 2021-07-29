@@ -8,20 +8,26 @@ import io.reactivex.Single
 
 class ProductRepositoryImpl(
     private val remoteDataSource: ProductDataSource,
-    localDataSource: ProductLocalDataSource
+    val localDataSource: ProductLocalDataSource
 ) : ProductRepository {
 
-    override fun getProducts(sort:Int): Single<List<Product>> =remoteDataSource.getProducts(sort)
+    override fun getProducts(sort: Int): Single<List<Product>> =
+        localDataSource.getFavorites().flatMap { favoriteProducts ->
+            remoteDataSource.getProducts(sort).doOnSuccess {
+                val favoriteProductsId = favoriteProducts.map {
+                    it.id
+                }
+                it.forEach { product ->
+                    if (favoriteProductsId.contains(product.id))
+                        product.isFavorite = true
+                }
+            }
+        }
 
-    override fun getFavorites(): Single<List<Product>> {
-        TODO("Not yet implemented")
-    }
+    override fun getFavorites(): Single<List<Product>> = localDataSource.getFavorites()
 
-    override fun addToFavorites(): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun addToFavorites(product: Product): Completable = localDataSource.addToFavorites(product)
 
-    override fun deleteFromProducts(): Completable {
-        TODO("Not yet implemented")
-    }
+    override fun deleteFromProducts(product: Product): Completable =
+        localDataSource.deleteFromProducts(product)
 }

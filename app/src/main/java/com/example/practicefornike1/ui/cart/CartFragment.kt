@@ -19,6 +19,7 @@ import com.example.practicefornike1.service.ImageLoadingService
 import com.example.practicefornike1.ui.auth.AuthenticationActivity
 import com.example.practicefornike1.ui.auth.LoginFragment
 import com.example.practicefornike1.ui.product.ProductDetailActivity
+import com.example.practicefornike1.ui.shipping.ShippingActivity
 import com.google.android.material.button.MaterialButton
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -79,21 +80,11 @@ class CartFragment:NikeFragment(),CartItemAdapter.CartItemViewCallBacks {
                 emptyState?.visibility=View.GONE
         }
 
-//        viewModel.emptyStateLiveData.observe(viewLifecycleOwner) {
-//            if (it.mustShow) {
-//                val emptyState = showEmptyState(R.layout.layout_empty_state)
-//
-//                emptyState?.let { view ->
-//                    view.emptyStateMessageTv.text = getString(it.messageResId)
-//                    view.emptyStateCtaBtn.visibility =
-//                        if (it.mustShowCallToActionButton) View.VISIBLE else View.GONE
-//                    view.emptyStateCtaBtn.setOnClickListener {
-//                        startActivity(Intent(requireContext(), AuthenticationActivity::class.java))
-//                    }
-//                }
-//            } else
-//                emptyStateRootView?.visibility = View.GONE
-//        }
+        binding.payBtn.setOnClickListener {
+            startActivity(Intent(requireContext(),ShippingActivity::class.java).apply {
+                putExtra(EXTRA_KEY_DATA,viewModel.purchaseDetailLiveData.value)
+            })
+        }
     }
 
     override fun onStart() {

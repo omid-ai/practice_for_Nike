@@ -9,4 +9,8 @@ interface UserRepository {
     fun signUp(userName:String,password: String):Completable
 
     fun loadToken()
+
+    fun getUsername():String
+
+    fun signOut()
 }
